@@ -1,0 +1,20 @@
+# Virtual Environment
+.venv/
+env/
+venv/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyThaiNLP local corpus cache
+.pythainlp-data/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Streamlit local credentials
+.streamlit/secrets.toml

@@ -1,0 +1,74 @@
+{
+  "model_name": "TF-IDF + Logistic Regression (Balanced)",
+  "tokenizer": "PyThaiNLP newmm",
+  "accuracy": 0.6882,
+  "macro_f1": 0.6646,
+  "weighted_f1": 0.6937,
+  "classes": [
+    "เชิงกลาง",
+    "เชิงบวก",
+    "เชิงลบ"
+  ],
+  "classification_report": {
+    "เชิงกลาง": {
+      "precision": 0.7955665024630542,
+      "recall": 0.665521978021978,
+      "f1-score": 0.724756918474196,
+      "support": 1456.0
+    },
+    "เชิงบวก": {
+      "precision": 0.45714285714285713,
+      "recall": 0.602510460251046,
+      "f1-score": 0.51985559566787,
+      "support": 478.0
+    },
+    "เชิงลบ": {
+      "precision": 0.7074122236671001,
+      "recall": 0.7964860907759883,
+      "f1-score": 0.7493112947658402,
+      "support": 683.0
+    },
+    "accuracy": 0.6881925869316011,
+    "macro avg": {
+      "precision": 0.6533738610910038,
+      "recall": 0.6881728430163374,
+      "f1-score": 0.6646412696359687,
+      "support": 2617.0
+    },
+    "weighted avg": {
+      "precision": 0.7107457631123889,
+      "recall": 0.6881925869316011,
+      "f1-score": 0.6937396493514483,
+      "support": 2617.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      969,
+      303,
+      184
+    ],
+    [
+      149,
+      288,
+      41
+    ],
+    [
+      100,
+      39,
+      544
+    ]
+  ],
+  "train_samples": 23545,
+  "test_samples": 2617,
+  "train_distribution": {
+    "เชิงกลาง": 13105,
+    "เชิงลบ": 6140,
+    "เชิงบวก": 4300
+  },
+  "test_distribution": {
+    "เชิงกลาง": 1456,
+    "เชิงลบ": 683,
+    "เชิงบวก": 478
+  }
+}
