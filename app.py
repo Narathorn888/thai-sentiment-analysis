@@ -438,8 +438,8 @@ with st.sidebar:
             ⚡
         </div>
         <div>
-            <div style='font-size: 17px; font-weight: 700; color: #F8FAFC;'>ThaiNLP CRM</div>
-            <div style='font-size: 12px; color: #94A3B8;'>Enterprise Liquid Glass AI</div>
+            <div style='font-size: 17px; font-weight: 700; color: #F8FAFC;'>thai Sentiment  Analysis</div>
+            <div style='font-size: 12px; color: #94A3B8;'></div>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -463,20 +463,6 @@ with st.sidebar:
         </div>
     </div>
     """, unsafe_allow_html=True)
-    
-    st.divider()
-    st.markdown("#### 👥 คณะผู้จัดทำ")
-    st.markdown("""
-    <div style='background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 14px; font-size: 12.5px; color: #CBD5E1;'>
-        <strong style='color: #818CF8;'>CS461 Final Project:</strong>
-        <div style='margin-top: 8px; line-height: 1.7;'>
-            • นราทร ศุภสุวรณพงษ์ (1660704568)<br>
-            • วิษณุ เดวี (1660704048)<br>
-            • ณัฏฐกิตติ์ สุทธิเกษมคุณ (1660702562)<br>
-            • นฤเบศ จีนล้ำเลิศ (1660703750)
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # Hero Header (Dark Liquid Glass)
@@ -484,7 +470,7 @@ with st.sidebar:
 st.markdown("""
 <div class="hero-container">
     <div class="hero-badge">
-        <span>●</span> AI Powered CRM Platform • PyThaiNLP Engine • Liquid Glass UI
+        <span>●</span> AI Powered CRM Platform • PyThaiNLP Engine
     </div>
     <div class="hero-title">
         ระบบวิเคราะห์ความรู้สึกและจำแนกประเด็นปัญหาบริการลูกค้าจากข้อความรีวิวภาษาไทย
@@ -520,22 +506,42 @@ with tab_live:
         </div>
         """, unsafe_allow_html=True)
         
-        user_text = st.text_area(
-            "Review Input",
-            value="ส่งของไวมากครับ สินค้าคุณภาพดีตรงปก แพ็คมาแน่นหนา แอดมินตอบแชทสุภาพมาก ประทับใจร้านนี้",
-            height=140,
-            label_visibility="collapsed"
-        )
-        
+        # Manage review text in session state so sample buttons update instantly
+        if "review_input" not in st.session_state:
+            st.session_state["review_input"] = "ส่งของไวมากครับ สินค้าคุณภาพดีตรงปก แพ็คมาแน่นหนา แอดมินตอบแชทสุภาพมาก ประทับใจร้านนี้"
+
+        def set_sample_review(text: str):
+            st.session_state["review_input"] = text
+
         st.markdown("<div class='sample-pill-title'>⚡ ตัวอย่างรีวิวกดทดสอบด่วน:</div>", unsafe_allow_html=True)
         pill_col1, pill_col2, pill_col3 = st.columns(3)
         
-        if pill_col1.button("🟢 รีวิวชมเชย (Positive)", use_container_width=True):
-            user_text = "ของส่งไวมาก คุณภาพดีเยี่ยม คุ้มค่าเกินราคา มีของแถมให้ด้วย ชอบมากๆ"
-        if pill_col2.button("🟡 สอบถามทั่วไป (Neutral)", use_container_width=True):
-            user_text = "ได้รับพัสดุเรียบร้อยแล้ว สินค้าครบถ้วนตามสั่ง ยังไม่ได้ลองเปิดใช้งาน"
-        if pill_col3.button("🔴 เคสร้องเรียน (Negative)", use_container_width=True):
-            user_text = "ส่งช้ามาก กล่องพังยับเยิน สินค้าด้านในแตกหัก แอดมินตอบช้าปัดความรับผิดชอบ แย่สุดๆ"
+        pill_col1.button(
+            "🟢 รีวิวชมเชย (Positive)", 
+            use_container_width=True,
+            on_click=set_sample_review,
+            args=("ของส่งไวมาก คุณภาพดีเยี่ยม คุ้มค่าเกินราคา มีของแถมให้ด้วย ชอบมากๆ",)
+        )
+        pill_col2.button(
+            "🟡 สอบถามทั่วไป (Neutral)", 
+            use_container_width=True,
+            on_click=set_sample_review,
+            args=("ได้รับพัสดุเรียบร้อยแล้ว สินค้าครบถ้วนตามสั่ง ยังไม่ได้ลองเปิดใช้งาน",)
+        )
+        pill_col3.button(
+            "🔴 เคสร้องเรียน (Negative)", 
+            use_container_width=True,
+            on_click=set_sample_review,
+            args=("ส่งช้ามาก กล่องพังยับเยิน สินค้าด้านในแตกหัก แอดมินตอบช้าปัดความรับผิดชอบ แย่สุดๆ",)
+        )
+
+        st.markdown("<div style='height: 6px;'></div>", unsafe_allow_html=True)
+        user_text = st.text_area(
+            "Review Input",
+            key="review_input",
+            height=140,
+            label_visibility="collapsed"
+        )
 
         st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
         analyze_clicked = st.button("🚀 วิเคราะห์ความรู้สึก & ประเด็นปัญหา", type="primary", use_container_width=True)
