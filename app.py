@@ -38,8 +38,29 @@ st.markdown("""
 
 <style>
     /* Global Font Override */
-    html, body, [class*="css"], .stMarkdown, .stText, p, div, span, button, input, textarea {
+    html, body, .stApp, .stMarkdown, .stText, p, h1, h2, h3, h4, h5, h6, input, textarea {
         font-family: 'Prompt', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    }
+    
+    /* Ensure Streamlit Material Symbols / Icons are NOT overridden */
+    [data-testid="stIconMaterial"], 
+    [class*="material-symbols"], 
+    [class*="material-icons"], 
+    .material-symbols-rounded,
+    .material-symbols-outlined,
+    .material-icons {
+        font-family: "Material Symbols Rounded", "Material Symbols Outlined", "Material Icons" !important;
+        font-weight: normal !important;
+        font-style: normal !important;
+        line-height: 1 !important;
+        letter-spacing: normal !important;
+        text-transform: none !important;
+        display: inline-block !important;
+        white-space: nowrap !important;
+        word-wrap: normal !important;
+        direction: ltr !important;
+        -webkit-font-feature-settings: 'liga' !important;
+        -webkit-font-smoothing: antialiased !important;
     }
     
     code, pre {
@@ -339,16 +360,43 @@ st.markdown("""
         color: #F8FAFC !important;
     }
 
-    /* Expander Glass */
+    /* Modern Streamlit Expander Glass */
+    [data-testid="stExpander"] {
+        background: transparent !important;
+        border: none !important;
+        margin-top: 14px !important;
+    }
+    [data-testid="stExpander"] details {
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 14px !important;
+        background: rgba(15, 23, 42, 0.45) !important;
+        backdrop-filter: blur(16px) !important;
+        overflow: hidden !important;
+    }
+    [data-testid="stExpander"] details summary {
+        background: rgba(30, 41, 59, 0.45) !important;
+        color: #E2E8F0 !important;
+        padding: 12px 16px !important;
+        border-radius: 14px !important;
+        transition: all 0.2s ease !important;
+    }
+    [data-testid="stExpander"] details summary:hover {
+        background: rgba(51, 65, 85, 0.55) !important;
+        color: #FFFFFF !important;
+    }
+    [data-testid="stExpander"] details summary [data-testid="stIconMaterial"] {
+        margin-right: 6px !important;
+        vertical-align: middle !important;
+    }
     .streamlit-expanderHeader {
-        background: rgba(30, 41, 59, 0.4) !important;
+        background: rgba(30, 41, 59, 0.45) !important;
         backdrop-filter: blur(14px) !important;
         border-radius: 12px !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
         color: #E2E8F0 !important;
     }
     .streamlit-expanderContent {
-        background: rgba(15, 23, 42, 0.4) !important;
+        background: rgba(15, 23, 42, 0.45) !important;
         border-radius: 0 0 12px 12px !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
         border-top: none !important;
@@ -400,21 +448,21 @@ with st.sidebar:
     <div style='background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 14px; margin-bottom: 18px; box-shadow: inset 0 1px 1px rgba(255,255,255,0.15);'>
         <div style='display: flex; align-items: center; gap: 8px;'>
             <span style='height: 10px; width: 10px; background-color: #10B981; border-radius: 50%; display: inline-block; box-shadow: 0 0 10px #10B981;'></span>
-            <span style='font-size: 13px; font-weight: 600; color: #F8FAFC;'>Dark Mode: Active</span>
+            <span style='font-size: 13px; font-weight: 600; color: #F8FAFC;'>Status: Online</span>
         </div>
-        <div style='font-size: 12px; color: #94A3B8; margin-top: 5px;'>TF-IDF + Balanced Logistic Regression</div>
+        <div style='font-size: 12px; color: #94A3B8; margin-top: 5px;'>Wisesight Corpus • 26,737 ข้อความ</div>
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("#### ⚙️ การตั้งค่าระบบ")
-    model_choice = st.selectbox(
-        "โมเดลประมวลผล",
-        (
-            "TF-IDF + Logistic Regression (Active)",
-            "Bi-LSTM (Roadmap Week 5-7)",
-            "WangchanBERTa (Roadmap Week 5-7)"
-        )
-    )
+    st.markdown("#### ⚙️ โมเดลประมวลผล")
+    st.markdown("""
+    <div style='background: rgba(30, 41, 59, 0.45); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 12px 14px;'>
+        <div style='font-size: 13.5px; font-weight: 600; color: #F8FAFC; display: flex; align-items: center; gap: 8px;'>
+            <span style='height: 8px; width: 8px; background-color: #10B981; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #10B981;'></span>
+            TF-IDF + Logistic Regression (Active)
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
     
     st.divider()
     st.markdown("#### 👥 คณะผู้จัดทำ")
